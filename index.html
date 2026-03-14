@@ -69,8 +69,8 @@ body{
 <div class="memory" id="mem2">
     <img src="photo2_1.jpg" onclick="nextImage('mem2')">
     <p>图片1说明文字</p>
-    <audio id="audio_mem2">
-    <source src="music1.mp3" type="audio/mpeg">
+    <audio id="audio_mem2" controls>
+      <source src="music1.mp3" type="audio/mpeg">
     </audio>
 
 </div>
@@ -205,6 +205,7 @@ function nextImage(memId){
 // 播放音乐
     let audio = document.getElementById("audio_" + memId);
     if(audio){
+        audio.currentTime = 0;
         audio.play();
     }
 }
