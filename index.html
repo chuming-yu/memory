@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>秘密网页 - 词可见，图片受密码保护</title>
+<style>
+body{
+    background:white;
+    color:black;
+    text-align:center;
+    margin-top:50px;
+    font-family:Arial;
+}
+.word{
+    font-size:24px;
+    margin:20px;
+    cursor:pointer;
+    color:blue;
+}
+.memory{
+    margin-top:20px;
+    display:none; /* 初始隐藏 */
+}
+.memory img{
+    width:400px;
+    height:auto;
+    cursor:pointer;
+}
+.memory p{
+    margin-top:10px;
+    font-size:14px;
+    color:lightgray;
+}
+
+.intro{
+    max-width:600px;
+    margin:40px auto;
+    font-size:11px;
+    line-height:1.6;
+    color:gray;
+}
+
+.highlight{
+    max-width:600px;
+    margin:40px auto;
+    font-size:18px;
+    line-height:1.6;
+    color:black;
+}
+
+</style>
+</head>
+<body>
+
+<div class="intro">
+<span class="highlight">欢迎来到生日月！<br>
+这里保存了一些记忆。<br>
+点击下面的词语并输入密码，即可看到隐藏的内容。</span>
+</div>
+
+<!-- 记忆词 -->
+<div class="word" onclick="unlockOrNext('mem1','1101')">3月14日</div>
+<div class="memory" id="mem1">
+    <img src="photo1_1.jpg" onclick="nextImage('mem1')">
+    <p>今天是2026年2月4日，小毛正式来到家里的第一天( つ•̀ω•́)つ </p>
+</div>
+
+<div class="word" onclick="unlockOrNext('mem2','4269')">3月15日</div>
+<div class="memory" id="mem2">
+    <img src="photo2_1.jpg" onclick="nextImage('mem2')">
+    <p>图片1说明文字</p>
+</div>
+
+<div class="word" onclick="unlockOrNext('mem3','7751')">3月16日</div>
+<div class="memory" id="mem3">
+    <img src="photo3_1.jpg" onclick="nextImage('mem3')">
+    <p>图片1说明文字</p>
+</div>
+
+<div class="word" onclick="unlockOrNext('mem3','1096')">3月17日</div>
+<div class="memory" id="mem3">
+    <img src="photo3_1.jpg" onclick="nextImage('mem3')">
+    <p>图片1说明文字</p>
+</div>
+
+<div class="word" onclick="unlockOrNext('mem3','0013')">3月18日</div>
+<div class="memory" id="mem3">
+    <img src="photo3_1.jpg" onclick="nextImage('mem3')">
+    <p>图片1说明文字</p>
+</div>
+
+<div class="word" onclick="unlockOrNext('mem3','6654')">3月19日</div>
+<div class="memory" id="mem3">
+    <img src="photo3_1.jpg" onclick="nextImage('mem3')">
+    <p>图片1说明文字</p>
+</div>
+
+<div class="word" onclick="unlockOrNext('mem3','0971')">3月20日</div>
+<div class="memory" id="mem3">
+    <img src="photo3_1.jpg" onclick="nextImage('mem3')">
+    <p>图片1说明文字</p>
+</div>
+
+<div class="word" onclick="unlockOrNext('mem3','9898')">3月21日</div>
+<div class="memory" id="mem3">
+    <img src="photo3_1.jpg" onclick="nextImage('mem3')">
+    <p>图片1说明文字</p>
+</div>
+
+<div class="word" onclick="unlockOrNext('mem3','4205')">3月22日</div>
+<div class="memory" id="mem3">
+    <img src="photo3_1.jpg" onclick="nextImage('mem3')">
+    <p>图片1说明文字</p>
+</div>
+
+<div class="word" onclick="unlockOrNext('mem3','3367')">3月23日</div>
+<div class="memory" id="mem3">
+    <img src="photo3_1.jpg" onclick="nextImage('mem3')">
+    <p>图片1说明文字</p>
+</div>
+
+<div class="word" onclick="unlockOrNext('mem3','2019')">3月24日</div>
+<div class="memory" id="mem3">
+    <img src="photo3_1.jpg" onclick="nextImage('mem3')">
+    <p>图片1说明文字</p>
+</div>
+
+<div class="word" onclick="unlockOrNext('mem3','6100')">3月25日</div>
+<div class="memory" id="mem3">
+    <img src="photo3_1.jpg" onclick="nextImage('mem3')">
+    <p>图片1说明文字</p>
+</div>
+
+<div class="word" onclick="unlockOrNext('mem3','0193')">3月26日</div>
+<div class="memory" id="mem3">
+    <img src="photo3_1.jpg" onclick="nextImage('mem3')">
+    <p>图片1说明文字</p>
+</div>
+
+<div class="word" onclick="unlockOrNext('mem3','7377')">3月27日</div>
+<div class="memory" id="mem3">
+    <img src="photo3_1.jpg" onclick="nextImage('mem3')">
+    <p>图片1说明文字</p>
+</div>
+
+<script>
+// 每条记忆的图片和文字
+const memories = {
+    mem1: { 
+        images: ["photo1_1.jpg","photo1_2.jpg"], 
+        texts: ["今天是2026年2月4日，小毛正式来到家里的第一天( つ•̀ω•́)つ","差点吃掉小毛 ﾟдﾟ)!?"], 
+        index: 0, 
+        unlocked: false 
+    },
+    mem2: { 
+        images: ["photo2_1.jpg","photo2_2.jpg","photo2_3.jpg"], 
+        texts: ["图片1说明文字","图片2说明文字","图片3说明文字"], 
+        index: 0, 
+        unlocked: false 
+    },
+    mem3: { 
+        images: ["photo3_1.jpg","photo3_2.jpg","photo3_3.jpg"], 
+        texts: ["图片1说明文字","图片2说明文字","图片3说明文字"], 
+        index: 0, 
+        unlocked: false 
+    }
+};
+
+// 点击记忆词或图片
+function unlockOrNext(memId, pwd){
+    let mem = memories[memId];
+    if(!mem.unlocked){
+        let userInput = prompt("请输入密码");
+        if(userInput === pwd){
+            mem.unlocked = true;
+            mem.index = 0;
+            showMemory(memId);
+        } else {
+            alert("密码错误");
+        }
+    } else {
+        nextImage(memId);
+    }
+}
+
+// 显示图片容器
+function showMemory(memId){
+    const container = document.getElementById(memId);
+    let mem = memories[memId];
+    container.querySelector("img").src = mem.images[mem.index];
+    container.querySelector("p").textContent = mem.texts[mem.index];
+    container.style.display = "block";
+}
+
+// 点击图片切换下一张
+function nextImage(memId){
+    let mem = memories[memId];
+    mem.index = (mem.index + 1) % mem.images.length;
+    showMemory(memId);
+}
+</script>
+
+<div class="intro">
+灵感来源于德国圣诞月时人们互相制作赠送的“Adventskalender”。<br>
+“Adventskalender"是一种立体日历，制作者会在十二月的每一个日期后面藏着一张小照片，收到礼物的人从一号开始，每天打开一个属于当天日期的小门。
+</div>
+
+</body>
+</html>
