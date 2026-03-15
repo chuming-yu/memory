@@ -69,13 +69,13 @@ body{
 <div class="memory" id="mem2">
     <img src="photo2_1.jpg" onclick="nextImage('mem2')">
     <p>图片1说明文字</p>
-    <audio id="audio_mem2" controls>
-      <source src="music1.mp3" type="audio/mpeg">
+    <audio id="audio_mem2">
+    <source src="music1.mp3" type="audio/mpeg">
     </audio>
 
 </div>
 
-<div class="word" onclick="unlockOrNext('mem3','7751')">3月16日</div>
+<div class="word" onclick="unlockOrNext('mem3','2015')">3月16日</div>
 <div class="memory" id="mem3">
     <img src="photo3_1.jpg" onclick="nextImage('mem3')">
     <p>图片1说明文字</p>
@@ -164,10 +164,23 @@ const memories = {
     },
     mem3: { 
         images: ["photo3_1.jpg","photo3_2.jpg"], 
-        texts: ["图片1说明文字","图片2说明文字"], 
+        texts: ["今天是2026年2月8日，上海之行！遇到了饼饼的女朋友(ﾉ∀`*)","检查小亭的钟表还在走动，坐在小亭回想起一年前的日子(｡•ㅅ•｡)♡"], 
         index: 0, 
         unlocked: false 
-    }
+    },
+    mem4: { 
+        images: ["photo4_1.jpg","photo4_2.jpg"], 
+        texts: ["今天是2026年2月9日，获得了新牙齿(^□□■□^)","幸运事件：为箱子量身定做的储物柜！(☉д⊙)"], 
+        index: 0, 
+        unlocked: false 
+    },
+    mem3: { 
+        images: ["photo3_1.jpg","photo3_2.jpg"], 
+        texts: ["今天是2026年2月日，上海之行！遇到了饼饼的女朋友(ﾉ∀`*)","检查小亭的钟表还在走动，坐在小亭回想起一年前的日子(｡•ㅅ•｡)♡"], 
+        index: 0, 
+        unlocked: false 
+    },
+
 };
 
 // 点击记忆词或图片
@@ -205,7 +218,6 @@ function nextImage(memId){
 // 播放音乐
     let audio = document.getElementById("audio_" + memId);
     if(audio){
-        audio.currentTime = 0;
         audio.play();
     }
 }
