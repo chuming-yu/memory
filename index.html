@@ -30,6 +30,12 @@ body{
     margin-top:10px;
     font-size:14px;
     color:#888;
+    line-height: 1.8;
+    text-align: left;
+    padding: 0 30px;
+    white-space: pre-line;
+    max-width: 400px;
+    margin: 20px auto;
 }
 
 .intro{
@@ -115,6 +121,9 @@ body{
 <div class="memory" id="mem9">
     <img src="photo9_1.jpg" onclick="nextImage('mem9')">
     <p>图片1说明文字</p>
+    <audio id="audio_mem9">
+    <source src="music2.mp3" type="audio/mpeg">
+    </audio>
 </div>
 
 <div class="word" onclick="unlockOrNext('mem10','3367')">3月23日</div>
@@ -176,7 +185,7 @@ const memories = {
     },
     mem5: { 
         images: ["photo5_1.jpg","photo5_2.jpg"], 
-        texts: ["新的一年到来了，希望我和小宝都可以更加痛快！我很喜欢今年的烟花，希望这是令人难忘的一年。","两个小宝(๑ơ ₃ ơ)♥"], 
+        texts: ["新的一年到来了，希望我和小宝都可以更加痛快！希望这是令人难忘的一年。","两个小宝(๑ơ ₃ ơ)♥"], 
         index: 0, 
         unlocked: false 
     },
@@ -187,20 +196,20 @@ const memories = {
         unlocked: false 
     },
     mem7: { 
-        images: ["photo7_1.jpg","photo7_2.jpg"], 
-        texts: ["",""], 
+        images: ["photo7_1.jpg"], 
+        texts: ["永远一家人。"], 
         index: 0, 
         unlocked: false 
     },
     mem8: { 
-        images: ["photo8_1.jpg","photo8_2.jpg"], 
-        texts: ["",""], 
+        images: ["photo8_1.jpg","photo8_2.jpg","photo8_3.jpg"], 
+        texts: ["游泳的下午ฅ^•ﻌ•^ฅ","游泳的下午ฅ^•ﻌ•^ฅ","游泳的下午ฅ^•ﻌ•^ฅ"], 
         index: 0, 
         unlocked: false 
     },
     mem9: { 
-        images: ["photo9_1.jpg","photo9_2.jpg"], 
-        texts: ["",""], 
+        images: ["photo9_1.jpg","photo9_2.jpg","photo9_3.jpg","photo9_4.jpg"], 
+        texts: ["今天是2026年2月24日，早上我醒来的时候盯着这扇窗户发呆了很久，很想让时间就停留在现在，大家都在这栋房子里忙着各自的事，你也在楼下不知道什么时候会醒来。如果我动一动，栗宝就会赶紧过来看看我，叫我起床带她出去。如果我现在起床，可以去阳台看看太阳出来了没有，然后站在二楼伸个懒腰，如果客厅没有人，大家就是去市场买早餐了。但是豆芽肯定在，头发是散的，因为要等我给她梳头。我妈肯定会给我带点吃的回来，我还可以点一杯傣泐咖啡，然后嗦嗦粉。<br><br>这是夏天的窗户，窗外是热带的树，大片大片的叶子，这里永远是夏天，就像时间真的停滞了。","我在版纳也会常常想起我妹，我想事情如果再完美一点，我会和她一起在西双版纳像二十年前一样唱“美丽地西双版纳”。但事情如果这样完美，我和她就会像二十年前一样，不会长大。","还好是和小宝一起离开～","还好是和小宝一起离开～"], 
         index: 0, 
         unlocked: false 
     },
@@ -224,7 +233,7 @@ const memories = {
     },
     mem13: { 
         images: ["photo13_1.jpg","photo13_2.jpg"], 
-        texts: ["",""], 
+        texts: ["让人心碎的照片。","和小宝的分离。"], 
         index: 0, 
         unlocked: false 
     },
@@ -258,20 +267,40 @@ function showMemory(memId){
     const container = document.getElementById(memId);
     let mem = memories[memId];
     container.querySelector("img").src = mem.images[mem.index];
-    container.querySelector("p").textContent = mem.texts[mem.index];
+    container.querySelector("p").innerHTML = mem.texts[mem.index];
     container.style.display = "block";
 }
 
 // 点击图片切换下一张
 function nextImage(memId){
     let mem = memories[memId];
-    mem.index = (mem.index + 1) % mem.images.length;
+    mem.index = (mem.index + 1) % mem.images.length; // 切换到下一张
     showMemory(memId);
 
-// 播放音乐
     let audio = document.getElementById("audio_" + memId);
+    
     if(audio){
-        audio.play();
+        // 核心逻辑：使用 audio.paused 来判断
+        // audio.paused 为 true 表示音乐没在播（停止或还没开始）
+        
+        // 情况 A: mem2 在第 2 张图 (index 1) 时触发
+        if(memId === 'mem2' && mem.index === 1) {
+            if (audio.paused) { 
+                audio.play(); 
+            }
+        } 
+        // 情况 B: mem9 在第 3 张图 (index 2) 时触发
+        else if(memId === 'mem9' && mem.index === 2) {
+            if (audio.paused) { 
+                audio.play(); 
+            }
+        }
+        // 其他记忆（如果有音乐的话），默认逻辑也可以照此办理
+        else if(memId !== 'mem2' && memId !== 'mem9') {
+            if (audio.paused) {
+                audio.play();
+            }
+        }
     }
 }
 </script>
