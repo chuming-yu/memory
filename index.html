@@ -150,10 +150,16 @@ body{
     <p>图片1说明文字</p>
 </div>
 
-<div class="word" onclick="unlockOrNext('mem14','7377')">3月27日</div>
-<div class="memory" id="mem14">
-    <img src="photo14_1.jpg" onclick="nextImage('mem14')">
-    <p>图片1说明文字</p>
+<div class="word" onclick="unlockOrNext('mem14','7377')">3月27日</div> <div class="memory" id="mem14">
+    <video id="video_mem14" width="400" loop muted playsinline onclick="nextImage('mem14')" style="display:block; margin:0 auto; border-radius:8px; cursor:pointer;">
+        <source src="video1.mp4" type="video/mp4">
+    </video>
+
+    <audio id="audio_mem14">
+        <source src="music3.mp3" type="audio/mpeg">
+    </audio>
+
+    <p></p>
 </div>
 
 <script>
@@ -214,32 +220,43 @@ const memories = {
         unlocked: false 
     },
     mem10: { 
-        images: ["photo10_1.jpg","photo10_2.jpg"], 
-        texts: ["",""], 
+        images: ["photo10_1.jpg","photo10_2.jpg","photo10_3.jpg"], 
+        texts: ["爱与感谢","",""], 
         index: 0, 
         unlocked: false 
     },
     mem11: { 
         images: ["photo11_1.jpg","photo11_2.jpg"], 
-        texts: ["",""], 
+        texts: ["今天是2026年2月25日，我们一起打了耳洞 .(´∀`). ","我们的耳朵时至今日都还在疼着耶_(:3 」∠ )_"], 
         index: 0, 
         unlocked: false 
     },
     mem12: { 
-        images: ["photo12_1.jpg","photo12_2.jpg"], 
-        texts: ["",""], 
+        images: ["photo12_1.jpg","photo12_2.jpg","photo12_3.jpg","photo12_4.jpg"], 
+        texts: ["今天是史诗级的一天！没有排队就吃到了好吃的寿司郎，好lucky呀~看到这里的你今天也会很lucky哟ε٩(๑> ₃ <)۶з","小宝在西村大院","我的可爱大头照(^_っ^)","我们俩在西村大院的傍晚 d(`･∀･)b（总感觉跟右上角的厕所有些呼应）"], 
         index: 0, 
         unlocked: false 
     },
     mem13: { 
         images: ["photo13_1.jpg","photo13_2.jpg"], 
-        texts: ["让人心碎的照片。","和小宝的分离。"], 
+        texts: ["让人心碎的照片。","和小宝的离别。"], 
         index: 0, 
         unlocked: false 
     },
     mem14: { 
-        images: ["photo14_1.jpg","photo14_2.jpg"], 
-        texts: ["",""], 
+        images: ["dummy","dummy","dummy"], // 这里随便放个占位符，因为我们用的是 <video>
+        texts: [`小宝：<br>
+这封信是我在从普洱回版纳的路上坐在你旁边写的，车里在放holiday frost，这是今天的日推，我跟你说觉得这首歌很好听。
+刚刚你说，你看到前面的闪电了。<br>
+你又说，看不清前路了。<br>
+我没有看到闪电，因为我在打字。刚刚我看着夜里一直后退的高速路🛣️，周围的树木繁密，缝隙后不知道是什么亮光若隐若现，很像天上的星星。<br>
+你说这里的树和杭州的不一样，这里的🌲的叶子都是一片一片的，张牙舞爪地张开长着，虽然我没懂什么意思，因为我觉得叶子都是一片一片的。但是我能感觉到那种繁密带来的不同。<br>
+你一下把大灯打开，一下又关上，我想你应该怕影响到别人，但又怕自己看不见前路。<br>
+我刚刚看着前面发呆，想起我们这快乐的一天，和现在，忽然觉得，我几乎所有快乐的时光，美好的事，都是在跟你一起的时候发生的。无论那是我的事还是我们的事。与你有关还是无关。只要跟你在一起，就会有美好的事情发生。<br>
+我不知道未来会怎么样，但是你已经变成我的一部分，我知道我也成为了你的一部分，所以某种程度上来说，我们永远也不会再分开。<br>
+刚刚我们经过了农田夜间补关灯，你几次惊呼！我正在打字，几次抬头看见大片大片星星点点的灯光在农田上蔓延至很远很远处，如果不是你，我又看不到了。<br>`,`小宝，谢谢你在我身边，只有跟你在一起的时候我才会有只想要过简简单单的生活的愿望，在家翻找零食吃，饿了就唱好饿好饿歌，早上就唱起床歌，有一点点小钱就可以一起去大吃一顿，晚上一起缩在被窝里看投影。一开始我觉得海豹家族一点也不可爱，后来我把我们想象成了它们。<br>
+小宝，我也想给你买很好很好的礼物，但我只能在能力范围内给你买了很日常的小礼物，对比往年并不那么特别，希望你收到礼物不会失望。<br>
+我在这里很想你，虽然每次电话一接通我都说一些很傲娇的话，摆一些皱眉头的表情，有时候还会不耐烦，我也不知为什么会这样，但是我其实是很想念你的。希望你知道 ʃ♡ƪ`,`小宝，生日快乐！别太紧张了，无论你做得好不好，我都会爱你的。总有我们一口饭吃！`], 
         index: 0, 
         unlocked: false 
     },
@@ -266,40 +283,51 @@ function unlockOrNext(memId, pwd){
 function showMemory(memId){
     const container = document.getElementById(memId);
     let mem = memories[memId];
-    container.querySelector("img").src = mem.images[mem.index];
+    
+    // --- 针对图片的处理 ---
+    let imgTag = container.querySelector("img");
+    if(imgTag && mem.images && mem.images.length > 0) {
+        imgTag.src = mem.images[mem.index];
+    }
+    
+    // --- 针对视频的处理 (针对 mem14) ---
+    let videoTag = container.querySelector("video");
+    if(videoTag) {
+        videoTag.currentTime = 0; // 重置进度
+        videoTag.play().catch(e => console.log("视频播放受阻")); 
+    }
+
+    // --- 针对文字的处理 ---
     container.querySelector("p").innerHTML = mem.texts[mem.index];
     container.style.display = "block";
+
+    // --- 针对 mem14 这种一打开就播音乐的情况 ---
+    if(memId === 'mem14') {
+        let audio = document.getElementById("audio_" + memId);
+        if(audio && audio.paused) {
+            audio.play();
+        }
+    }
 }
 
-// 点击图片切换下一张
+// 点击图片切换下一张 (逻辑保持你现在的，只需微调)
 function nextImage(memId){
     let mem = memories[memId];
-    mem.index = (mem.index + 1) % mem.images.length; // 切换到下一张
+    mem.index = (mem.index + 1) % mem.images.length; 
     showMemory(memId);
 
     let audio = document.getElementById("audio_" + memId);
-    
     if(audio){
-        // 核心逻辑：使用 audio.paused 来判断
-        // audio.paused 为 true 表示音乐没在播（停止或还没开始）
-        
-        // 情况 A: mem2 在第 2 张图 (index 1) 时触发
+        // mem2 和 mem9 的特殊判断逻辑
         if(memId === 'mem2' && mem.index === 1) {
-            if (audio.paused) { 
-                audio.play(); 
-            }
+            if (audio.paused) { audio.play(); }
         } 
-        // 情况 B: mem9 在第 3 张图 (index 2) 时触发
         else if(memId === 'mem9' && mem.index === 2) {
-            if (audio.paused) { 
-                audio.play(); 
-            }
+            if (audio.paused) { audio.play(); }
         }
-        // 其他记忆（如果有音乐的话），默认逻辑也可以照此办理
-        else if(memId !== 'mem2' && memId !== 'mem9') {
-            if (audio.paused) {
-                audio.play();
-            }
+        // mem14 已经在 showMemory 里播了，这里可以跳过或保持
+        else if(memId !== 'mem2' && memId !== 'mem9' && memId !== 'mem14') {
+            if (audio.paused) { audio.play(); }
         }
     }
 }
